@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { SiLinkedin } from "react-icons/si";
+import { HiOutlineMail, HiOutlineDocumentText } from "react-icons/hi";
 
 function TypewriterText({ text, onComplete }: { text: string; onComplete: () => void }) {
   const [displayedText, setDisplayedText] = useState("");
@@ -65,15 +67,15 @@ export default function Home() {
       {/* hamburger menu */}
       <button
         onClick={toggleMenu}
-        className={`absolute top-8 left-8 z-50 w-8 h-8 flex flex-col justify-center gap-1.5 transition-opacity duration-300 cursor-pointer ${
+        className={`absolute top-8 left-8 z-50 w-8 h-8 flex flex-col justify-center gap-1.5 transition-opacity duration-300 cursor-pointer group ${
           showContent ? "opacity-100" : "opacity-0"
         }`}
         style={{ animationDelay: showContent ? "0.2s" : "0s" }}
         aria-label="Menu"
       >
-        <span className={`block w-full h-1 bg-[#1E1E1E] transition-all ${isMenuOpen ? "bg-[#1E1E1E]" : ""}`}></span>
-        <span className={`block w-full h-1 bg-[#1E1E1E] transition-all ${isMenuOpen ? "bg-[#1E1E1E]" : ""}`}></span>
-        <span className={`block w-full h-1 bg-[#1E1E1E] transition-all ${isMenuOpen ? "bg-[#1E1E1E]" : ""}`}></span>
+        <span className={`block w-full h-1 bg-[#1E1E1E] group-hover:bg-[#6F7F63] transition-colors ${isMenuOpen ? "bg-[#1E1E1E]" : ""}`}></span>
+        <span className={`block w-full h-1 bg-[#1E1E1E] group-hover:bg-[#6F7F63] transition-colors ${isMenuOpen ? "bg-[#1E1E1E]" : ""}`}></span>
+        <span className={`block w-full h-1 bg-[#1E1E1E] group-hover:bg-[#6F7F63] transition-colors ${isMenuOpen ? "bg-[#1E1E1E]" : ""}`}></span>
       </button>
 
       {/* navigation overlay */}
@@ -159,26 +161,31 @@ export default function Home() {
           >
             <Link 
               href="mailto:jessicaknguyen04@gmail.com"
-              className="text-[#1E1E1E] hover:text-[#6F7F63] transition-colors underline decoration-[#C9C6C1] hover:decoration-[#6F7F63] font-bold tracking-tighter text-right"
+              className="flex items-center gap-2 text-[#1E1E1E] hover:text-[#6F7F63] transition-colors underline decoration-[#C9C6C1] hover:decoration-[#6F7F63] font-bold tracking-tighter text-right"
               style={{ letterSpacing: '-0.01em' }}
             >
-              jessicaknguyen04@gmail.com
+              <HiOutlineMail className="w-4 h-4" />
+              <span>jessicaknguyen04@gmail.com</span>
             </Link>
             <Link 
-              href="/resume"
-              className="text-[#1E1E1E] hover:text-[#6F7F63] transition-colors underline decoration-[#C9C6C1] hover:decoration-[#6F7F63] font-bold tracking-tighter text-right"
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-[#1E1E1E] hover:text-[#6F7F63] transition-colors underline decoration-[#C9C6C1] hover:decoration-[#6F7F63] font-bold tracking-tighter text-right"
               style={{ letterSpacing: '-0.01em' }}
             >
-              resume
+              <HiOutlineDocumentText className="w-4 h-4" />
+              <span>resume</span>
             </Link>
             <Link 
               href="https://www.linkedin.com/in/jessicaknguyen04/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#1E1E1E] hover:text-[#6F7F63] transition-colors underline decoration-[#C9C6C1] hover:decoration-[#6F7F63] font-bold tracking-tighter text-right"
+              className="flex items-center gap-2 text-[#1E1E1E] hover:text-[#6F7F63] transition-colors underline decoration-[#C9C6C1] hover:decoration-[#6F7F63] font-bold tracking-tighter text-right"
               style={{ letterSpacing: '-0.01em' }}
             >
-              linkedin
+              <SiLinkedin className="w-4 h-4" />
+              <span>linkedin</span>
             </Link>
           </div>
         </div>

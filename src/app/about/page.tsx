@@ -24,6 +24,7 @@ import {
   SiGooglecolab,
   SiAmazon,
 } from "react-icons/si";
+import { HiOutlineMusicNote } from "react-icons/hi";
 
 function TypewriterText({ text, onComplete }: { text: string; onComplete: () => void }) {
   const [displayedText, setDisplayedText] = useState("");
@@ -63,6 +64,35 @@ function TypewriterText({ text, onComplete }: { text: string; onComplete: () => 
     <span>
       {displayedText}
       {dots}
+    </span>
+  );
+}
+
+function AnimatedText({ text }: { text: string }) {
+  const [highlightIndex, setHighlightIndex] = useState(-1);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHighlightIndex((prev) => {
+        // looping green text for funsies
+        return (prev + 1) % text.length;
+      });
+    }, 150); // speed of animation
+
+    return () => clearInterval(interval);
+  }, [text.length]);
+
+  return (
+    <span>
+      {text.split('').map((char, index) => (
+        <span
+          key={index}
+          className={index === highlightIndex ? 'text-[#6F7F63]' : 'text-[#1E1E1E]'}
+          style={{ transition: 'color 0.2s ease' }}
+        >
+          {char}
+        </span>
+      ))}
     </span>
   );
 }
@@ -140,14 +170,14 @@ export default function About() {
       {/* hamburger menu */}
       <button
         onClick={toggleMenu}
-        className={`absolute top-8 left-8 z-50 w-8 h-8 flex flex-col justify-center gap-1.5 transition-opacity duration-300 cursor-pointer ${
+        className={`absolute top-8 left-8 z-50 w-8 h-8 flex flex-col justify-center gap-1.5 transition-opacity duration-300 cursor-pointer group ${
           showContent ? "opacity-100" : "opacity-0"
         }`}
         aria-label="Menu"
       >
-        <span className="block w-full h-1 bg-[#1E1E1E]"></span>
-        <span className="block w-full h-1 bg-[#1E1E1E]"></span>
-        <span className="block w-full h-1 bg-[#1E1E1E]"></span>
+        <span className="block w-full h-1 bg-[#1E1E1E] group-hover:bg-[#6F7F63] transition-colors"></span>
+        <span className="block w-full h-1 bg-[#1E1E1E] group-hover:bg-[#6F7F63] transition-colors"></span>
+        <span className="block w-full h-1 bg-[#1E1E1E] group-hover:bg-[#6F7F63] transition-colors"></span>
       </button>
 
       {/* logo - top right */}
@@ -198,7 +228,7 @@ export default function About() {
       <div className="flex flex-col md:flex-row min-h-screen pt-20 md:pt-0">
         {/* left section - images */}
         <div
-          className={`w-full md:w-1/2 flex flex-col items-center justify-center p-6 md:p-8 md:pt-12 transition-opacity duration-1000 ${
+          className={`w-full md:w-1/2 flex flex-col items-center p-6 md:p-8 md:pt-20 transition-opacity duration-1000 ${
             showContent ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -226,7 +256,7 @@ export default function About() {
               />
               <div className="absolute inset-0 bg-[#C9C6C1] bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-500 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
                 <p className="text-[#1E1E1E] text-sm md:text-base px-4 text-center font-normal tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
-                  my team and i placing third at my first ever hackathon, codered astra hosted at the university of houston!
+                  my team and i placing third at my first ever hackathon, code red astra hosted at the university of houston!
                 </p>
               </div>
             </div>
@@ -239,11 +269,30 @@ export default function About() {
               />
               <div className="absolute inset-0 bg-[#C9C6C1] bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-500 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
                 <p className="text-[#1E1E1E] text-sm md:text-base px-4 text-center font-normal tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
-                  this was the last day of teaching my fall junior engineering club at code ninjas. as you can see, my students were super proud of their certificates.
+                  this was the last day of teaching my fall junior engineering club at code ninjas. as you can see, my students were super proud of themselves... or maybe their certificates on the fancy paper?
                 </p>
               </div>
             </div>
           </div>
+          
+          {/* note section */}
+          <section className="w-full max-w-xl mt-8">
+            <div className="flex items-center justify-between mb-6 gap-4">
+              <h2 className="text-5xl md:text-6xl font-bold text-[#1E1E1E] tracking-tighter leading-tight" style={{ letterSpacing: '-0.02em' }}>
+                note
+              </h2>
+              {/* currently listening to section */}
+              <div className="flex items-center gap-2 justify-end flex-shrink-0">
+                <HiOutlineMusicNote className="w-5 h-5 text-[#1E1E1E]" />
+                <p className="text-sm md:text-base text-[#1E1E1E] font-normal tracking-tighter text-right" style={{ letterSpacing: '-0.01em' }}>
+                  currently listening to: <span className="font-bold"><AnimatedText text="twilight by elliott smith" /></span>
+                </p>
+              </div>
+            </div>
+            <p className="text-base md:text-lg text-[#1E1E1E] leading-relaxed font-normal tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
+              in the off chance that i am not doing anything cs-related, my current hobbies are chess, guitar, videography, and cooking. i love talking about these subjects, so please don't hesitate to send me a message if you want a friend.
+            </p>
+          </section>
         </div>
 
         {/* right section - content */}
@@ -364,16 +413,6 @@ export default function About() {
                 </div>
               ))}
             </div>
-          </section>
-
-          {/* note section */}
-          <section className="w-full mt-12 md:mt-16">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 text-[#1E1E1E] tracking-tighter leading-tight" style={{ letterSpacing: '-0.02em' }}>
-              note
-            </h2>
-            <p className="text-base md:text-lg text-[#1E1E1E] leading-relaxed max-w-2xl font-normal tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
-              in the off chance that i am not doing anything cs-related, my current hobbies are chess, guitar, videography, and cooking. i love talking about these subjects, so please don't hesitate to send me a message if you want a friend.
-            </p>
           </section>
         </div>
       </div>

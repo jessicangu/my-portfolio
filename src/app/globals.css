@@ -24,3 +24,26 @@ body {
 .animate-fade-in {
   animation: fade-in 0.8s ease-in-out;
 }
+
+@keyframes music-wave {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.1) rotate(-5deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15) rotate(0deg);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 0.8;
+  }
+}
+
+.animate-music-wave {
+  animation: music-wave 2s ease-in-out infinite;
+}
