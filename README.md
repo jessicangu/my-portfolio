@@ -1,2 +1,3 @@
 personal portfolio made with next.js
-also designed by me
+
+my design process: sketched on paper -> figma and adobe photoshop -> code

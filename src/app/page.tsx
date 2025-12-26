@@ -172,7 +172,7 @@ export default function Home() {
               resume
             </Link>
             <Link 
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/jessicaknguyen04/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#1E1E1E] hover:text-[#6F7F63] transition-colors underline decoration-[#C9C6C1] hover:decoration-[#6F7F63] font-bold tracking-tighter text-right"
