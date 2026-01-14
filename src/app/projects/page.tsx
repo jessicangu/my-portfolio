@@ -301,6 +301,24 @@ export default function Projects() {
               </div>
             ))}
           </div>
+
+          {/* creative work bridge section */}
+          <div className="mt-20 md:mt-24 pt-12 md:pt-16 border-t border-[#C9C6C1] text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1E1E1E] tracking-tighter mb-4" style={{ letterSpacing: '-0.02em' }}>
+              creative work
+            </h2>
+            <p className="text-base md:text-lg text-[#1E1E1E] leading-relaxed font-normal tracking-tighter mb-6" style={{ letterSpacing: '-0.01em' }}>
+              outside of software, i also work on video editing and visual storytelling.
+            </p>
+            <Link
+              href="/creative"
+              className="inline-flex items-center gap-2 text-[#1E1E1E] hover:text-[#6F7F63] transition-colors underline decoration-[#C9C6C1] hover:decoration-[#6F7F63] font-bold tracking-tighter text-base md:text-lg"
+              style={{ letterSpacing: '-0.01em' }}
+            >
+              <span>view editing projects</span>
+              <span>→</span>
+            </Link>
+          </div>
         </div>
       </div>
     </main>
