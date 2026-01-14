@@ -156,6 +156,7 @@ export default function About() {
   const [showContent, setShowContent] = useState(false);
   const [typingComplete, setTypingComplete] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
 
   useEffect(() => {
     setShowContent(true);
@@ -233,66 +234,50 @@ export default function About() {
           }`}
         >
           <div className="flex flex-col gap-2 w-full max-w-xl">
-            <div className="relative w-full aspect-[4/3] group cursor-pointer">
-              <Image
-                src="/self-2.jpg"
-                alt="About me"
-                fill
-                className="object-cover rounded-lg"
-                priority
-              />
-              <div className="absolute inset-0 bg-[#C9C6C1] bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-500 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <p className="text-[#1E1E1E] text-sm md:text-base px-4 text-center font-normal tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
-                  last october, i got invited to present my research on neural machine translation at the great minds in stem conference in san diego.
-                </p>
+            {[
+              {
+                src: "/self-2.jpg",
+                alt: "About me",
+                description: "last october, i got invited to present my research on neural machine translation at the great minds in stem conference in san diego.",
+                priority: true
+              },
+              {
+                src: "/self-3.jpg",
+                alt: "Skills",
+                description: "my team and i placing third at my first ever hackathon, code red astra hosted at the university of houston!",
+                priority: false
+              },
+              {
+                src: "/self-4.jpg",
+                alt: "Experience",
+                description: "this was the last day of teaching my fall junior engineering club at code ninjas. as you can see, my students were super proud of themselves... or maybe their certificates on the fancy paper?",
+                priority: false
+              }
+            ].map((image, index) => (
+              <div 
+                key={index}
+                className="relative w-full aspect-[4/3] group cursor-pointer"
+                onClick={() => setActiveImageIndex(activeImageIndex === index ? null : index)}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover rounded-lg"
+                  priority={image.priority}
+                />
+                <div className={`absolute inset-0 bg-[#C9C6C1] transition-all duration-500 rounded-lg flex items-center justify-center ${
+                  activeImageIndex === index 
+                    ? 'bg-opacity-70 opacity-100' 
+                    : 'bg-opacity-0 opacity-0 md:group-hover:bg-opacity-70 md:group-hover:opacity-100'
+                }`}>
+                  <p className="text-[#1E1E1E] text-sm md:text-base px-4 text-center font-normal tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
+                    {image.description}
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="relative w-full aspect-[4/3] group cursor-pointer">
-              <Image
-                src="/self-3.jpg"
-                alt="Skills"
-                fill
-                className="object-cover rounded-lg"
-              />
-              <div className="absolute inset-0 bg-[#C9C6C1] bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-500 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <p className="text-[#1E1E1E] text-sm md:text-base px-4 text-center font-normal tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
-                  my team and i placing third at my first ever hackathon, code red astra hosted at the university of houston!
-                </p>
-              </div>
-            </div>
-            <div className="relative w-full aspect-[4/3] group cursor-pointer">
-              <Image
-                src="/self-4.jpg"
-                alt="Experience"
-                fill
-                className="object-cover rounded-lg"
-              />
-              <div className="absolute inset-0 bg-[#C9C6C1] bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-500 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <p className="text-[#1E1E1E] text-sm md:text-base px-4 text-center font-normal tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
-                  this was the last day of teaching my fall junior engineering club at code ninjas. as you can see, my students were super proud of themselves... or maybe their certificates on the fancy paper?
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
-          
-          {/* note section */}
-          <section className="w-full max-w-xl mt-8">
-            <div className="flex items-center justify-between mb-6 gap-4">
-              <h2 className="text-5xl md:text-6xl font-bold text-[#1E1E1E] tracking-tighter leading-tight" style={{ letterSpacing: '-0.02em' }}>
-                note
-              </h2>
-              {/* currently listening to section */}
-              <div className="flex items-center gap-2 justify-end flex-shrink-0">
-                <HiOutlineMusicNote className="w-5 h-5 text-[#1E1E1E]" />
-                <p className="text-sm md:text-base text-[#1E1E1E] font-normal tracking-tighter text-right" style={{ letterSpacing: '-0.01em' }}>
-                  currently listening to: <span className="font-bold"><AnimatedText text="twilight by elliott smith" /></span>
-                </p>
-              </div>
-            </div>
-            <p className="text-base md:text-lg text-[#1E1E1E] leading-relaxed font-normal tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
-              in the off chance that i am not doing anything cs-related, my current hobbies are chess, guitar, videography, and cooking. i love talking about these subjects, so please don't hesitate to send me a message if you want a friend.
-            </p>
-          </section>
         </div>
 
         {/* right section - content */}
@@ -398,7 +383,7 @@ export default function About() {
                     <h3 className="text-xl font-bold text-[#1E1E1E] tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
                       {job.title}
                     </h3>
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-1 md:gap-0">
                       <p className="text-base font-normal text-[#6F7F63] tracking-tighter" style={{ letterSpacing: '-0.01em' }}>
                         {job.company}
                       </p>
@@ -416,6 +401,25 @@ export default function About() {
           </section>
         </div>
       </div>
+
+      {/* note section - centered on entire page */}
+      <section className="w-full flex flex-col items-center px-6 md:px-8 py-12 md:py-16">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4 max-w-2xl w-full">
+          <h2 className="text-5xl md:text-6xl font-bold text-[#1E1E1E] tracking-tighter leading-tight" style={{ letterSpacing: '-0.02em' }}>
+            note
+          </h2>
+          {/* currently listening to section */}
+          <div className="flex items-center gap-2 md:justify-end flex-shrink-0 md:ml-4">
+            <HiOutlineMusicNote className="w-5 h-5 text-[#1E1E1E]" />
+            <p className="text-sm md:text-base text-[#1E1E1E] font-normal tracking-tighter md:text-right" style={{ letterSpacing: '-0.01em' }}>
+              currently listening to: <span className="font-bold"><AnimatedText text="twilight by elliott smith" /></span>
+            </p>
+          </div>
+        </div>
+        <p className="text-base md:text-lg text-[#1E1E1E] leading-relaxed font-normal tracking-tighter max-w-2xl text-center" style={{ letterSpacing: '-0.01em' }}>
+          in the off chance that i am not doing anything cs-related, my current hobbies are chess, guitar, videography, and cooking. i love talking about these subjects, so please don't hesitate to send me a message if you want a friend.
+        </p>
+      </section>
     </main>
   );
 }
