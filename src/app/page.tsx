@@ -149,7 +149,7 @@ export default function Home() {
             }`}
             style={{ transitionDelay: typingComplete ? "0.5s" : "0s", letterSpacing: '-0.01em' }}
           >
-            computer science senior graduating this upcoming spring. interested in consulting, project management, full-stack development, and machine learning.
+            computer science senior graduating this upcoming spring. interested in consulting, product management, full-stack development, and machine learning.
           </p>
 
           {/* contact information (homepage) */}
