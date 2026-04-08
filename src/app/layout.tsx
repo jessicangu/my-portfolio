@@ -1,3 +1,4 @@
+import "./globals.css";
 import { Inter } from "next/font/google"; // using inter font, bold and regular weights
 
 const inter = Inter({
